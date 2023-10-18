@@ -18,8 +18,9 @@ public class jwtUtils {
     private static final SecretKey jwtSecretKey=Keys.hmacShaKeyFor("4324923894239048fksdnfksdnfksnd948320958092389402FNKLSJNFKSDKLN4r093285940823409583290583092".getBytes());
 
 
-    public String createToken(String username) {
+    public String createToken(String username, String role) {
         Map<String, Object> claims = new HashMap<>();
+        claims.put("role", role); // Add the "role" claim
         return generateToken(claims, username);
     }
 
@@ -32,10 +33,5 @@ public class jwtUtils {
                 .setExpiration(new Date(System.currentTimeMillis() + JWT_TOKEN_VALIDITY))
                 .signWith(jwtSecretKey, SignatureAlgorithm.HS256)
                 .compact();
-    }
-
-    // Validate token
-    public void validateToken(final String token) {
-        Jwts.parserBuilder().setSigningKey(jwtSecretKey).build().parseClaimsJws(token);
     }
 }

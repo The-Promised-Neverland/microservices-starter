@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping("/api/products/admin")
+@RequestMapping("/api/admin/product")
 public class productController_AdminAccess {
     @Autowired
     private productService productService;

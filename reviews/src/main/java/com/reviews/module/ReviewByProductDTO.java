@@ -12,7 +12,8 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @NoArgsConstructor
 public class ReviewByProductDTO {
-    private Long userID;
+    private String email;
     private LocalDateTime timestamp;
     private String comment;
+    private double rating;
 }

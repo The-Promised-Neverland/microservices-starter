@@ -25,10 +25,4 @@ public class authController {
         String token=authService.generateToken(authRequest.getEmail(), authRequest.getPassword());
         return new ResponseEntity<>(token,HttpStatus.OK);
     }
-
-    @GetMapping("/validate")
-    public ResponseEntity<String> validateToken(@RequestParam(value = "token") String token){
-        authService.validateToken(token);
-        return new ResponseEntity<>("Token validated",HttpStatus.OK);
-    }
 }

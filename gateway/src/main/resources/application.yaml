@@ -6,20 +6,33 @@ spring:
           uri: lb://AUTH-SERVICE
           predicates:
             - Path=/api/auth/**
+
+        - id: product-service-admin
+          uri: lb://PRODUCT-SERVICE
+          predicates:
+            - Path=/api/admin/product/**
           filters:
-            - AuthenticationFilter
+            - AdminRoleCheckFilter
 
         - id: product-service
           uri: lb://PRODUCT-SERVICE
           predicates:
             - Path=/api/product/**
+
+        - id: review-service-admin
+          uri: lb://REVIEW-SERVICE
+          predicates:
+            - Path=/api/admin/reviews/**
           filters:
-            - AuthenticationFilter
+            - AdminRoleCheckFilter
 
         - id: review-service
           uri: lb://REVIEW-SERVICE
           predicates:
-            - Path=/api/review/**
+            - Path=/api/reviews/**
+          filters:
+            - AuthenticationFilter
+
 
   application:
     name: GATEWAY

@@ -10,7 +10,8 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 public class displayProductDTO {
+    private Long ProductID;
     private String name;
     private double price;
-    private double ratings;
+    private double ratings=0;
 }

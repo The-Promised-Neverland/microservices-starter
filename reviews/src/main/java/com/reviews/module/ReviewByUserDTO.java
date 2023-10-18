@@ -15,4 +15,5 @@ public class ReviewByUserDTO {
     private Long productID;
     private LocalDateTime timestamp;
     private String comment;
+    private double rating;
 }

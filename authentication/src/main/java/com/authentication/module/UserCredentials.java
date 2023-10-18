@@ -18,5 +18,5 @@ public class UserCredentials {
     private String email;
     private String name;
     private String password;
-    private String role="user";
+    private String role;
 }

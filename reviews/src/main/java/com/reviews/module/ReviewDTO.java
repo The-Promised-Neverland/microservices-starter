@@ -19,7 +19,8 @@ public class ReviewDTO {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Long productID;
-    private Long userID;
+    private String email;
     private String comment;
+    private double rating;
     private LocalDateTime timestamp; // Timestamp for the review
 }

@@ -3,6 +3,7 @@ package com.authentication.service;
 import com.authentication.config.jwtUtils;
 import com.authentication.module.UserCredentials;
 import com.authentication.repository.CredentialRepository;
+import com.authentication.utils.extractRoleUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -17,6 +18,8 @@ public class authService {
     private CredentialRepository credentialRepository;
 
     @Autowired
+    private extractRoleUtils extractRole;
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @Autowired
@@ -30,7 +33,9 @@ public class authService {
         if(existingUser!=null){
             throw new RuntimeException("User already exists");
         }
+
         user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRole("user");
         credentialRepository.save(user);
     }
 
@@ -38,12 +43,9 @@ public class authService {
         UsernamePasswordAuthenticationToken authtoken=new UsernamePasswordAuthenticationToken(email,password);
         Authentication authenticate=authenticationManager.authenticate(authtoken);
         if(authenticate.isAuthenticated()) {
-            return jwt.createToken(email);
+            String role = extractRole.getRoleAsString(authenticate.getAuthorities());
+            return jwt.createToken(email,role);
         }
         throw new RuntimeException("Invalid user");
-    }
-
-    public void validateToken(String token){
-        jwt.validateToken(token);
     }
 }

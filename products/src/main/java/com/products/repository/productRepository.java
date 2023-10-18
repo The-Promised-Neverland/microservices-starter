@@ -11,6 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface productRepository extends JpaRepository<ProductDTO, Long> {
 
-    @Query("SELECT NEW com.products.module.displayProductDTO(p.name, p.price, COALESCE(p.totalRatings / NULLIF(p.totalBuyers, 0), 0)) FROM ProductDTO p WHERE LOWER(p.name) LIKE %:searchKeyword%")
+    @Query("SELECT NEW com.products.module.displayProductDTO(p.ProductID, p.name, p.price, p.ratings) FROM ProductDTO p WHERE LOWER(p.name) LIKE %:searchKeyword%")
     Page<displayProductDTO> findByKeyword(Pageable pageable, String searchKeyword);
 }

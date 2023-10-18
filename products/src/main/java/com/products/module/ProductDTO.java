@@ -22,9 +22,5 @@ public class ProductDTO {
     private String description;
     private double price;
     private Long stock;
-
-    //This will be used to calculate the actual ratings of any product...Rating=totalRatings/totalBuyers
-    private Long totalBuyers=0L;
-    private double totalRatings=0.0;
-
+    private double ratings=0.0;
 }

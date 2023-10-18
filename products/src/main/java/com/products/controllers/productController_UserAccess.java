@@ -12,7 +12,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/products")
+@RequestMapping("/api/product")
 public class productController_UserAccess {
 
     @Autowired
@@ -24,7 +24,7 @@ public class productController_UserAccess {
      * GET - NAME, PRICE, RATINGS
      * UNSECURED
      */
-    @GetMapping
+    @GetMapping("/")
     public ResponseEntity<Page<displayProductDTO>> displayProducts(Pageable pageable, @RequestParam(name = "search", defaultValue = "") String search) {
         Page<displayProductDTO> products = productService.displayProducts(pageable, search);
         return new ResponseEntity<>(products, HttpStatus.OK);
@@ -40,4 +40,6 @@ public class productController_UserAccess {
         ProductDTO product = productService.showProduct(productID);
         return new ResponseEntity<>(product, HttpStatus.OK);
     }
+
+
 }
