@@ -2,20 +2,20 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1cf34cd0-0b5a-4ccc-b8fc-875fe6266ac9" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/utils/extractRoleUtils.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/jwtUtils.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/jwtUtils.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/IPFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/OTPAuthenticationProvider/Filters/OneTimePasswordAuthFilter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/OTPAuthenticationProvider/OneTimePasswordAuthProvider.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/OTPAuthenticationProvider/OneTimePasswordAuthenticationToken.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/OTPAuthenticationProvider/OneTimePasswordConverter.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/OTPAuthenticationProvider/VonageOTPSender.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/OTPAuthenticationProvider/VonageOTPVerifier.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/module/OTP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/AuthConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/AuthConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/AuthenticationManagerDBConnector.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/config/CustomUserDetailsService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/controller/authController.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/controller/authController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/module/UserCredentials.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/module/UserCredentials.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/service/authService.java" beforeDir="false" afterPath="$PROJECT_DIR$/authentication/src/main/java/com/authentication/service/authService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/gateway/filters/AuthenticationFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/gateway/filters/AuthenticationFilter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/gateway/filters/RouteValidator.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/gateway/filters/RouteValidator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/java/com/gateway/utils/jwtUtil.java" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/java/com/gateway/utils/jwtUtil.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/gateway/src/main/resources/application.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/gateway/src/main/resources/application.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/products/.idea/compiler.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products/src/main/java/com/products/controllers/productController_AdminAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/products/products/src/main/java/com/products/controllers/productController_AdminAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products/src/main/java/com/products/controllers/productController_UserAccess.java" beforeDir="false" afterPath="$PROJECT_DIR$/products/products/src/main/java/com/products/controllers/productController_UserAccess.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products/src/main/java/com/products/module/displayProductDTO.java" beforeDir="false" afterPath="$PROJECT_DIR$/products/products/src/main/java/com/products/module/displayProductDTO.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/products/products/src/main/java/com/products/repository/productRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/products/products/src/main/java/com/products/repository/productRepository.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,7 +39,8 @@
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true"
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "B:/JAVA/MICROSERVICES"
   }
 }]]></component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />

@@ -1,7 +1,8 @@
 package com.authentication.module;
 
-
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,12 +13,10 @@ import lombok.Setter;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class UserCredentials {
+@Table(name = "otp")
+public class OTP {
     @Id
-    private String email;
-    private String name;
-    private String password;
-    private String role;
-    private String phoneNumber;
+    String email;
+    String requestID;
+    String otp;
 }

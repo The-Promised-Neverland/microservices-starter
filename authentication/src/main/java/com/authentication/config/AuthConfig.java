@@ -11,7 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
-@EnableWebSecurity
+@EnableWebSecurity(debug = true)
 public class AuthConfig {
 
     @Bean
@@ -19,11 +19,13 @@ public class AuthConfig {
         return new BCryptPasswordEncoder();
     }
 
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
+                .cors(cors -> cors.disable())
                 .authorizeHttpRequests((authorizeHttpRequests) ->
-                        authorizeHttpRequests.requestMatchers("/api/auth/**").permitAll());
+                                        authorizeHttpRequests.requestMatchers("/api/auth/**").permitAll());
         return http.build();
     }
 
@@ -31,4 +33,5 @@ public class AuthConfig {
     public AuthenticationManager authenticationManager(AuthenticationConfiguration authconfig) throws Exception{
         return authconfig.getAuthenticationManager();
     }
+
 }

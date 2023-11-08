@@ -13,16 +13,21 @@ public class UserMapper_Security implements UserDetails {
     private String email;
     private String password;
     private String role;
+    private String phoneNumber;
 
-    public UserMapper_Security(String email, String password, String role) {
+    public UserMapper_Security(String email, String password, String role, String phoneNumber) {
         this.email = email;
         this.password = password;
         this.role = role;
+        this.phoneNumber=phoneNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        // Convert the roles to a list of GrantedAuthority objects
         return Collections.singletonList(new SimpleGrantedAuthority("ROLE_" + role));
     }
 
