@@ -1,6 +1,5 @@
 package com.authentication.utils;
 
-import com.authentication.module.UserMapper_Security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -55,7 +54,7 @@ public class jwtUtils {
         return claims.getSubject();
     }
 
-    private Boolean isTokenExpired(String token) {
+    public Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
     }
@@ -70,12 +69,8 @@ public class jwtUtils {
         return claims.get("Roles").toString();
     }
 
-    public String getOTPRequestIdFromToken(String token){
+    public Object getOTPRequestIdFromToken(String token){
         Claims claims=extractClaimsFromJwt(token);
-        return claims.get("OTP_RequestID").toString();
-    }
-    public Boolean validateToken(String token, UserMapper_Security userDetails) {
-        final String email = getEmailFromToken(token);
-        return (email.equals(userDetails.getUsername()) && !isTokenExpired(token));
+        return claims.get("OTP_RequestID");
     }
 }

@@ -1,5 +1,6 @@
 package com.authentication.config;
 
+import com.authentication.utils.jwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -11,7 +12,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
-import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity(debug = true)
@@ -24,15 +24,15 @@ public class AuthConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http, jwtUtils jwtUtils) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
                 .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+                .addFilterBefore(new JwtFilter(jwtUtils),UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((authorizeHttpRequests) ->
                                         authorizeHttpRequests.requestMatchers("/api/auth/register", "/api/auth/authenticate").permitAll()
-                                                             .requestMatchers("/api/auth/verifyOTP").hasRole("USER_PRE_AUTH_OTP")
-                                                .requestMatchers("/api/auth/hello").hasRole("ADMIN")
-                                                .requestMatchers("/api/auth/helloNeedsRole").authenticated());
+                                                             .requestMatchers("/api/auth/verifyOTP").hasRole("PENDING_AUTH_USER")
+                                                             .anyRequest().hasAnyRole("USER","ADMIN"));
         return http.build();
     }
 

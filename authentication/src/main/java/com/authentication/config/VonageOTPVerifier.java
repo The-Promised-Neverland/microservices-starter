@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class VonageOTPVerifier {
-    String apiKey = "72725217";
-    String apiSecret = "8etSHJbMIV4b2sYv";
+    String apiKey = "";
+    String apiSecret = "";
 
     public boolean verifyOtp(String requestID, String otp) {
         VonageClient client = VonageClient.builder()

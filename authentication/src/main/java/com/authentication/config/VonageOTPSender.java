@@ -10,8 +10,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class VonageOTPSender {
     public String  sendOtpSms(String userPhoneNumber) {
-        String apiKey = "72725217";
-        String apiSecret = "8etSHJbMIV4b2sYv";
+        String apiKey = "";
+        String apiSecret = "";
 
         VonageClient client = new VonageClient.Builder()
                 .apiKey(apiKey)

@@ -4,7 +4,6 @@ import com.authentication.module.AuthRequest;
 import com.authentication.module.UserCredentials;
 import com.authentication.service.authService;
 import jakarta.servlet.http.Cookie;
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,7 +37,7 @@ public class authController {
 
 
     @PostMapping("/verifyOTP")
-    public ResponseEntity<String> getToken(@RequestParam("X-OTP") String otp, HttpServletRequest request, HttpServletResponse response){
+    public ResponseEntity<String> getToken(@RequestParam("X-OTP") String otp, HttpServletResponse response){
         String jwt=authService.verifyOtp(otp);
 
         Cookie cookie = new Cookie("jwt", jwt); // Create a new cookie
@@ -48,15 +47,5 @@ public class authController {
         response.addCookie(cookie);
 
         return new ResponseEntity<>("OTP validation Successful.",HttpStatus.ACCEPTED);
-    }
-
-    @GetMapping("/hello")
-    public ResponseEntity<String> test(){
-        return new ResponseEntity<>("HELLO",HttpStatus.OK);
-    }
-
-    @GetMapping("/helloNeedsRole")
-    public ResponseEntity<String> test2(){
-        return new ResponseEntity<>("HELLO, authenticated now fuklky",HttpStatus.OK);
     }
 }

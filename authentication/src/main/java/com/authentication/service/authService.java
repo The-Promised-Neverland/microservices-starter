@@ -57,7 +57,7 @@ public class authService {
         }
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
-        user.setRole("user");
+        user.setRole("USER");
         credentialRepository.save(user);
     }
 
@@ -66,13 +66,10 @@ public class authService {
         Authentication authenticate=authenticationManager.authenticate(authtoken);
         if(authenticate.isAuthenticated()) {
             String phoneNumber=((UserMapper_Security) authenticate.getPrincipal()).getPhoneNumber();
-//            String requestID=otpSender.sendOtpSms(phoneNumber);
-            String requestID="123123412";
+            String requestID=otpSender.sendOtpSms(phoneNumber);
             Map<String,Object> claims=new HashMap<>();
             claims.put("OTP_RequestID",requestID);
             claims.put("Roles","PENDING_AUTH_USER"); // OTP REQUIRED
-            logger.info("username: " + ((UserMapper_Security) authenticate.getPrincipal()).getUsername());
-            logger.info("RequestID: " + requestID);
             return jwtUtils.generateToken(claims,((UserMapper_Security) authenticate.getPrincipal()).getUsername(), 300000L);
         }
         throw new RuntimeException("Invalid user");
@@ -80,12 +77,15 @@ public class authService {
 
     public String verifyOtp(String OTP){
         Authentication clearedOTPUser=SecurityContextHolder.getContext().getAuthentication();
-        logger.info("clearedOTPUser.getName(): " + clearedOTPUser.getName());
-        UserDetails userDetails = userService.loadUserByUsername(clearedOTPUser.getName());
-        UsernamePasswordAuthenticationToken finalAuth = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
-        SecurityContextHolder.getContext().setAuthentication(finalAuth);
 
-//        String token = jwtUtils.generateToken(clearedOTPUser.getName(),extractRole.getRoleAsString(finalAuth.getAuthorities()));
-        return "lol";
+        if(otpVerifier.verifyOtp(clearedOTPUser.getDetails().toString(),OTP)==false){
+            throw new RuntimeException("OTP expired or incorrect.");
+        }
+
+        UserDetails userDetails = userService.loadUserByUsername(clearedOTPUser.getName());
+        Map<String,Object> claims=new HashMap<>();
+        claims.put("Roles", extractRole.getRoleAsString(userDetails.getAuthorities())); // OTP REQUIRED
+        String token = jwtUtils.generateToken(claims,userDetails.getUsername(),null);
+        return token;
     }
 }
