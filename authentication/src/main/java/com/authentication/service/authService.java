@@ -67,9 +67,11 @@ public class authService {
         if(authenticate.isAuthenticated()) {
             String phoneNumber=((UserMapper_Security) authenticate.getPrincipal()).getPhoneNumber();
             String requestID=otpSender.sendOtpSms(phoneNumber);
+
             Map<String,Object> claims=new HashMap<>();
             claims.put("OTP_RequestID",requestID);
-            claims.put("Roles","PENDING_AUTH_USER"); // OTP REQUIRED
+            claims.put("Role","PENDING_AUTH_USER"); // OTP REQUIRED
+
             return jwtUtils.generateToken(claims,((UserMapper_Security) authenticate.getPrincipal()).getUsername(), 300000L);
         }
         throw new RuntimeException("Invalid user");
@@ -84,7 +86,7 @@ public class authService {
 
         UserDetails userDetails = userService.loadUserByUsername(clearedOTPUser.getName());
         Map<String,Object> claims=new HashMap<>();
-        claims.put("Roles", extractRole.getRoleAsString(userDetails.getAuthorities())); // OTP REQUIRED
+        claims.put("Role", extractRole.getRoleAsString(userDetails.getAuthorities())); // OTP REQUIRED
         String token = jwtUtils.generateToken(claims,userDetails.getUsername(),null);
         return token;
     }

@@ -54,6 +54,4 @@ public class productController_AdminAccess {
         productService.saveProduct(productDTO);
         return new ResponseEntity<>("Product created successfully", HttpStatus.OK);
     }
-
-
 }

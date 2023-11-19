@@ -20,7 +20,7 @@ public class productController_UserAccess {
 
 
     /**
-     * url - {{DOMAIN}}/api/products/?page={PAGE_NUMBER}&size={PAGE_SIZE}&sort={SORTING_ON},{asc/desc}
+     * url - {{DOMAIN}}/api/product/?page={PAGE_NUMBER}&size={PAGE_SIZE}&sort={SORTING_ON},{asc/desc}
      * GET - NAME, PRICE, RATINGS
      * UNSECURED
      */
@@ -31,7 +31,7 @@ public class productController_UserAccess {
     }
 
     /**
-     * url - {{DOMAIN}}/api/products/{productID}
+     * url - {{DOMAIN}}/api/product/{productID}
      * GET - NAME, PRICE, RATINGS
      * UNSECURED
      */

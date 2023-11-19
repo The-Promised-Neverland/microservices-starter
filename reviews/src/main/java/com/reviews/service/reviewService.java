@@ -19,12 +19,16 @@ public class reviewService {
     @Autowired
     private reviewRepository reviewRepository;
 
+
+    public double getProductRating(Long productID){
+        return reviewRepository.findAverageRatingByProductID(productID);
+    }
     public Page<ReviewByProductDTO> getReviewsByProductID(Long productID, Pageable pageable){
         Page<ReviewByProductDTO> reviews=reviewRepository.findReviewsByProductID(productID, pageable);
         return reviews;
     }
 
-    public Page<ReviewByUserDTO> getReviewsByUserID(String email, Pageable pageable){
+    public Page<ReviewByUserDTO> getReviewsByEmail(String email, Pageable pageable){
         Page<ReviewByUserDTO> reviews=reviewRepository.findByReviewsByEmail(email,pageable);
         return reviews;
     }

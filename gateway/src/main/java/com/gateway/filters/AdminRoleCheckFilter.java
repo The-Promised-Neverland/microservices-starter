@@ -2,6 +2,8 @@ package com.gateway.filters;
 
 
 import com.gateway.utils.jwtUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -29,18 +31,19 @@ public class AdminRoleCheckFilter extends AbstractGatewayFilterFactory<AdminRole
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 authHeader = authHeader.substring(7);
             }
-            System.out.println("authHeader: " + authHeader);
-
             try {
                 jwtUtil.validateToken(authHeader);
             } catch (Exception e) {
                 throw new RuntimeException("un authorized access to application");
             }
-
+            String userEmail = jwtUtil.extractEmail(authHeader); // Replace with the actual method to extract the email
             String role = jwtUtil.extractRoleFromToken(authHeader);
-            if (!"admin".equals(role)) {
+            if (!"ADMIN".equals(role)) {
                 throw new RuntimeException("You do not have admin access.");
             }
+            // Add the email to the request headers
+            exchange.getRequest().mutate().header("user", userEmail);
+            exchange.getRequest().mutate().header("role", role);
             return chain.filter(exchange);
         });
     }

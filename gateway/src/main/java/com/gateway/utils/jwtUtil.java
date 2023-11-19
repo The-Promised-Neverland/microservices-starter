@@ -3,21 +3,28 @@ package com.gateway.utils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import javax.crypto.SecretKey;
 
 
-import io.jsonwebtoken.Claims;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.security.Keys;
-import org.springframework.stereotype.Component;
-
-import javax.crypto.SecretKey;
 
 @Component
 public class jwtUtil {
-    private static final SecretKey jwtSecretKey= Keys.hmacShaKeyFor("4324923894239048fksdnfksdnfksnd948320958092389402FNKLSJNFKSDKLN4r093285940823409583290583092".getBytes());
+
+    @Value("${jwt.secret}")
+    private String jwtSecret;
+
+    @Value("${jwt.token.validity}")
+    private long jwtTokenValidity;
+
+    private SecretKey jwtSecretKey;
+    @PostConstruct
+    public void jwtUtils() {
+        jwtSecretKey = Keys.hmacShaKeyFor(jwtSecret.getBytes());
+    }
 
     // Validate token
     public void validateToken(final String token) {
@@ -33,8 +40,7 @@ public class jwtUtil {
                     .getBody();
 
             // Extract the "role" claim from JWT
-            String role = (String) claims.get("role");
-
+            String role = (String) claims.get("Role");
             return role;
         } catch (Exception e) {
             throw new RuntimeException("Invalid token");

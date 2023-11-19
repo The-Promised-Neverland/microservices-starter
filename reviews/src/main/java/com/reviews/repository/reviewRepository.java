@@ -15,5 +15,7 @@ public interface reviewRepository extends JpaRepository<ReviewDTO,Long> {
     @Query("SELECT NEW com.reviews.module.ReviewByUserDTO(r.productID, r.timestamp, r.comment, r.rating) FROM ReviewDTO r WHERE r.email = ?1")
     Page<ReviewByUserDTO> findByReviewsByEmail(String email, Pageable pageable);
 
+    @Query("SELECT AVG(r.rating) FROM ReviewDTO r WHERE r.productID = ?1")
+    Double findAverageRatingByProductID(Long productID);
     ReviewDTO findByProductIDAndEmail(Long productID, String email);
 }

@@ -1,6 +1,5 @@
-package com.authentication.config;
+package com.reviews.config;
 
-import com.authentication.utils.jwtUtils;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -22,15 +21,15 @@ public class AuthConfig {
 
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http, jwtUtils jwtUtils) throws Exception {
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(csrf -> csrf.disable())
                 .cors(cors -> cors.disable())
                 .sessionManagement(ssm -> ssm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .addFilterBefore(new JwtFilter(jwtUtils),UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new CredentialFilter(),UsernamePasswordAuthenticationFilter.class)
                 .authorizeHttpRequests((authorizeHttpRequests) ->
-                                        authorizeHttpRequests.requestMatchers("/api/auth/register", "/api/auth/authenticate","/api/auth/callREST").permitAll()
-                                                             .requestMatchers("/api/auth/verifyOTP").hasRole("PENDING_AUTH_USER")
-                                                             .anyRequest().hasAnyRole("USER","ADMIN"));
+                        authorizeHttpRequests.requestMatchers("/api/reviews/product/**").permitAll()
+                                .requestMatchers("/api/reviews/**").hasRole("USER")
+                                .requestMatchers("/api/admin/reviews").hasRole("ADMIN"));
         return http.build();
     }
 

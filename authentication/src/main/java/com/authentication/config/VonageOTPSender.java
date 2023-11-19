@@ -5,14 +5,18 @@ import com.vonage.client.VonageClientException;
 import com.vonage.client.verify.VerifyClient;
 import com.vonage.client.verify.VerifyRequest;
 import com.vonage.client.verify.VerifyResponse;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
 public class VonageOTPSender {
-    public String  sendOtpSms(String userPhoneNumber) {
-        String apiKey = "";
-        String apiSecret = "";
 
+    @Value("${vonage.api.key}")
+    private String apiKey;
+    @Value("${vonage.api.secret}")
+    private String apiSecret;
+
+    public String  sendOtpSms(String userPhoneNumber) {
         VonageClient client = new VonageClient.Builder()
                 .apiKey(apiKey)
                 .apiSecret(apiSecret)

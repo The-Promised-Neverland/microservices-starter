@@ -17,7 +17,7 @@ public class reviewController_AdminAccess {
 
     @GetMapping("/email/{userID}")
     public ResponseEntity<Page<ReviewByUserDTO>> userReviews(@PathVariable("userID") String userID, Pageable pageable) {
-        Page<ReviewByUserDTO> reviews=reviewService.getReviewsByUserID(userID,pageable);
+        Page<ReviewByUserDTO> reviews=reviewService.getReviewsByEmail(userID,pageable);
         return new ResponseEntity<>(reviews,HttpStatus.OK);
     }
 }

@@ -2,6 +2,8 @@ package com.gateway.filters;
 
 
 import com.gateway.utils.jwtUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
@@ -21,6 +23,9 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
         super(Config.class);
     }
 
+
+    Logger logger= LoggerFactory.getLogger(AuthenticationFilter.class);
+
     @Override
     public GatewayFilter apply(Config config) {
         return ((exchange, chain) -> {
@@ -33,12 +38,14 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
                 if (authHeader != null && authHeader.startsWith("Bearer ")) {
                     authHeader = authHeader.substring(7);
                 }
+                logger.info("token: " + authHeader);
                 try {
                     jwtUtil.validateToken(authHeader);
                     String userEmail = jwtUtil.extractEmail(authHeader); // Replace with the actual method to extract the email
-
+                    String role=jwtUtil.extractRoleFromToken(authHeader);
                     // Add the email to the request headers
                     exchange.getRequest().mutate().header("user", userEmail);
+                    exchange.getRequest().mutate().header("role", role);
                 } catch (Exception e) {
                     System.out.println("invalid access...!");
                     throw new RuntimeException("un authorized access to application");
